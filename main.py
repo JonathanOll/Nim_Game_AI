@@ -83,26 +83,26 @@ class Player:
         for i, a in enumerate(self.V):
             print(i+1, ":", a)
 
+if __name__ == "__main__":
+    p1 = Player("Bot 1", 0.01, True, True)
+    p2 = Player("Bot 2", 0.01, True, False)
+    game = Game(p1, p2)
 
-p1 = Player("Bot 1", 0.01, True, True)
-p2 = Player("Bot 2", 0.01, True, False)
-game = Game(p1, p2)
+    # Train the AI before playing for real
+    
+    before = time()
 
-# Train the AI before playing for real
+    for a in range(100000):
+        game.game()
+        game.reset()
 
-before = time()
+    p1.render()
 
-for a in range(100000):
-    game.game()
-    game.reset()
+    print("Process completed in", time() - before, ("secs" if time() - before >= 2 else "sec"))
 
-p1.render()
+    # Play with a real player
 
-print("Process completed in", time() - before, ("secs" if time() - before >= 2 else "sec"))
-
-# Play with a real player
-
-while True:
-    player = Player("Player", 0, False, False)
-    game = Game(p1, player)
-    game.game()
+    while True:
+        player = Player("Player", 0, False, False)
+        game = Game(p1, player)
+        game.game()
